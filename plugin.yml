@@ -1,0 +1,20 @@
+name: RasBeer
+main: tk.rasmase.beer.Beer
+version: 0.2
+author: Rasmase
+website: http://dev.bukkit.org/server-mods/rasbeer/
+permissions:
+    beer.beer.*:
+        description: Gives access to all beer stuff
+        children:
+            beer.beer.drink: true
+            beer.beer.brew: true
+    beer.beer.drink:
+        description: Allows you to drink beer
+        default: true
+    beer.beer.brew:
+        description: Allows you to brew beer
+        default: true
+commands:
+   beer:
+      description: Basic beer command
