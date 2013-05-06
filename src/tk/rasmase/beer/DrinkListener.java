@@ -20,8 +20,13 @@ public class DrinkListener implements Listener {
     public void onPlayerDrink(PlayerItemConsumeEvent event) {
         ItemStack item = event.getItem(); //Gets the item that is consumed
         Player player = event.getPlayer(); //Gets player who triggered effect
+<<<<<<< HEAD
         if (event.isCancelled() == true || event.getItem() == null) {
         	return;
+=======
+               if (event.isCancelled() == true || event.getItem() == null) {
+         return;
+>>>>>>> c07409a94f8f22be36038a1c372c849d1b3fe9e0
         } else if (item.getItemMeta().getDisplayName() == "Beer") { //If the item's name is beer...
         	if(player.hasPermission("beer.beer.drink")) { //Check for permission
         	 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 3000, 1));  //Gives the drinker various effects
