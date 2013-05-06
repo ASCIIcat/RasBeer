@@ -7,7 +7,6 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitTask;
 
 public class DrinkListener implements Listener {
 	
@@ -21,7 +20,9 @@ public class DrinkListener implements Listener {
     public void onPlayerDrink(PlayerItemConsumeEvent event) {
         ItemStack item = event.getItem(); //Gets the item that is consumed
         Player player = event.getPlayer(); //Gets player who triggered effect
-        if (item.getItemMeta().getDisplayName().equals("Beer")) { //If the item's name is beer...
+        if (event.isCancelled() == true || event.getItem() == null) {
+        	return;
+        } else if (item.getItemMeta().getDisplayName() == "Beer") { //If the item's name is beer...
         	if(player.hasPermission("beer.beer.drink")) { //Check for permission
         	 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 3000, 1));  //Gives the drinker various effects
         	 player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 3000, 1));
@@ -31,10 +32,20 @@ public class DrinkListener implements Listener {
         		event.setCancelled(true); //cancel drinking
         		player.sendMessage("You don't have permission to drink beer!");
         	}
+        } else if (item.getItemMeta().getDisplayName().equals("Ale")) {
+        	if(player.hasPermission("beer.ale.drink")) { //Check for permission
+           	 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 3000, 1));  //Gives the drinker various effects
+           	 player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 3000, 1));
+           	 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 3000, 1));
+           	 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 3000, 1));
+           	} else {
+           		event.setCancelled(true); //cancel drinking
+           		player.sendMessage("You don't have permission to drink beer!");
         }
     
     	
     }
 
 
+}
 }

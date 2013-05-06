@@ -1,20 +1,39 @@
-#This is how beer will be crafted. Line 1 is the upper line of the #crafting table.
+#This is how beer will be crafted. Line 1 is the upper line of the crafting table.
 #The default config will result in a crafting recipe like this:
 #BLANK:BLANK:BLANK
 #SEED:SEED:SEED
 #WATER_BOTTLE:WATER_BOTTLE:WATER_BOTTLE
 beer:
   line1: "   " #Space means blank
-  line2: "SSS" #S is in this case Seeds
+  line2: "SSS" #S is in this case wheat
   line3: "WWW" #W is Water Bottle
 
   Material1Name: "W" #Symbol used up there
   Material1: "POTION" #What it actually is
 
   Material2Name: "S" #Same as with Material1
-  Material2: "SEEDS"
+  Material2: "WHEAT"
 
   Material3Name: ""
   Material3: ""
 
-#PS, if you are tired of all these comments, delete them. Nothing will #happen.
+ale: #Just the same as beer...
+  line1: " U "
+  line2: "SSS"
+  line3: "WWW"
+
+  Material1Name: "W"
+  Material1: "POTION"
+
+  Material2Name: "S"
+  Material2: "WHEAT"
+
+  Material3Name: "U"
+  Material3: "SUGAR"
+
+#Dont touch this.
+db:
+  kegs:
+  - Seriously, hands off.
+
+#PS, if you are tired of all these comments, delete them. Nothing will happen.

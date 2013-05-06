@@ -59,6 +59,40 @@ public class BeerCommandExecutor implements CommandExecutor {
 									return false;
 								}
 							}
+							
+							} else if (args[1].equalsIgnoreCase("ale")) {
+								if (args.length < 2) {
+									if (sender instanceof Player) {
+										if (sender.hasPermission("beer.give.ale")) {
+										giveAle(sender);
+										return true;
+									} else {
+										sender.sendMessage("You don't have permission to do this!");
+										return false;
+									}
+									} else {
+										sender.sendMessage("Don't give beer to the console, it's a violent drinker.");
+										return false;
+									}
+								} else {
+									Player target = (plugin.getServer().getPlayer(args[2]));
+									if (sender.hasPermission("beer.give.ale")) {
+									if (target == null) {
+										sender.sendMessage(args[2] + " is not online!");
+										return false;
+									} else {
+										giveBeer(target);
+										sender.sendMessage("Gave " +target.getName() + " some ale");
+										return true;
+										
+									}
+									} else {
+										sender.sendMessage("You do not have permission to do this!");
+										return false;
+									}
+								}
+									
+								
 							} else {
 								sender.sendMessage("Command usage: /beer give beer [player]");
 								return false;
@@ -71,6 +105,7 @@ public class BeerCommandExecutor implements CommandExecutor {
 							sender.sendMessage("Unknown command! Type /beer help for help.");
 							return false;
 						}
+				        
 				} else { //If it's not
 					sender.sendMessage("Beer plugin by Rasmase. Type '/beer help' for help");
 			return false;
@@ -93,6 +128,16 @@ public class BeerCommandExecutor implements CommandExecutor {
     	meta.setLore(Arrays.asList("Gives slowness and confusion effects."));
     	beer.setItemMeta(meta); //Something meta something
     	commandSender.getInventory().addItem(beer);
+	}
+	
+	public void giveAle(CommandSender sender) {
+		Player commandSender = (Player)sender;
+		ItemStack ale = new ItemStack(Material.POTION, 3); //Defines beer
+    	ItemMeta meta2 = ale.getItemMeta(); //Get meta something
+    	meta2.setDisplayName("Ale"); //Sets name
+    	meta2.setLore(Arrays.asList("Gives slowness and confusion effects."));
+    	ale.setItemMeta(meta2); //Something meta something
+    	commandSender.getInventory().addItem(ale);
 	}
 	
 }
