@@ -29,7 +29,7 @@ public class BeerCommandExecutor implements CommandExecutor {
 						} else if (args[0].equalsIgnoreCase("give")) {
 							if (args.length > 1) {
 							if(args[1].equalsIgnoreCase("beer")) {
-							if (args.length < 2) {
+							if (args.length < 3) {
 								if (sender instanceof Player) {
 									if (sender.hasPermission("beer.give.beer")) {
 									giveBeer(sender);
@@ -42,7 +42,7 @@ public class BeerCommandExecutor implements CommandExecutor {
 									sender.sendMessage("Don't give beer to the console, it's a violent drinker.");
 									return false;
 								}
-							} else {
+							} else if(args.length == 3) {
 								Player target = (plugin.getServer().getPlayer(args[2]));
 								if (sender.hasPermission("beer.give.beer")) {
 								if (target == null) {
@@ -58,10 +58,13 @@ public class BeerCommandExecutor implements CommandExecutor {
 									sender.sendMessage("You do not have permission to do this!");
 									return false;
 								}
+							} else {
+								sender.sendMessage("Invalid command syntax!");
+								return false;
 							}
 							
 							} else if (args[1].equalsIgnoreCase("ale")) {
-								if (args.length < 2) {
+								if (args.length < 3) {
 									if (sender instanceof Player) {
 										if (sender.hasPermission("beer.give.ale")) {
 										giveAle(sender);
@@ -74,7 +77,7 @@ public class BeerCommandExecutor implements CommandExecutor {
 										sender.sendMessage("Don't give beer to the console, it's a violent drinker.");
 										return false;
 									}
-								} else {
+								} else if (args.length == 3) {
 									Player target = (plugin.getServer().getPlayer(args[2]));
 									if (sender.hasPermission("beer.give.ale")) {
 									if (target == null) {
@@ -90,6 +93,9 @@ public class BeerCommandExecutor implements CommandExecutor {
 										sender.sendMessage("You do not have permission to do this!");
 										return false;
 									}
+								} else {
+									sender.sendMessage("Invalid command syntax!");
+									return false;
 								}
 									
 								

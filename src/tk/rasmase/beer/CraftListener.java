@@ -22,6 +22,7 @@ public class CraftListener implements Listener {
 
     	if(human instanceof Player) {
     	    Player brewer = (Player)human;
+    	    if (event.getRecipe().getResult().getType() == Material.POTION) {
         	if (event.getRecipe().getResult().getItemMeta().getDisplayName().equals("Beer") ) {
         		if (brewer.hasPermission("beer.beer.brew")) {
         		//Let him craft
@@ -44,7 +45,12 @@ public class CraftListener implements Listener {
                             brewer.getInventory().addItem(new ItemStack(Material.matchMaterial(plugin.getConfig().getString("ale.Material3"))));
                 		}
         		
+        		} else {
+        			return;
         		}
+    	} else {
+    		return;
+    	}
         		
         	}
     	}
