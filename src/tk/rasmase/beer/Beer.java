@@ -45,7 +45,7 @@ public final class Beer extends JavaPlugin implements Listener {
 			//Sets beer
 	    	ItemStack drink = new ItemStack(Material.POTION, 3); //Defines beer
 	    	ItemMeta meta = drink.getItemMeta(); //Get meta something
-	    	meta.setDisplayName(config.getString(key+".DrinkName")); //Sets name
+	    	meta.setDisplayName(config.getString(key)); //Sets name
 	    	meta.setLore(Arrays.asList(config.getString(key+".DrinkLore"))); //Sets Desc
 	    	drink.setItemMeta(meta); //Something meta something
 	    	//Sets Beer
@@ -59,10 +59,11 @@ public final class Beer extends JavaPlugin implements Listener {
 	        if (!config.getString(key+".Material2").equals("")) {
 	        	Drink.setIngredient(config.getString(key+".Material2Name").charAt(0), Material.matchMaterial(config.getString(key+".Material2")));
 	           }
-	        if (!config.getString("beer.Material3").equals("")) {
+	        if (!config.getString(key+".Material3").equals("")) {
 	        	Drink.setIngredient(config.getString(key+".Material3Name").charAt(0), Material.matchMaterial(config.getString(key+".Material3")));
 	           }
 	        Bukkit.getServer().addRecipe(Drink);  //Adds the recipe to server
+	        getLogger().info("RasBeer Recipe added:"+config.getString(key+".DrinkName"));
 	        //Sets Recipe
 		}
         

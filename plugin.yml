@@ -7,25 +7,16 @@ permissions:
     beer.beer.*:
         description: Gives access to all beer stuff
         children:
-            beer.beer.drink: true
-            beer.beer.brew: true
-    beer.beer.drink:
+            beer.drink: true
+            beer.brew: true
+    beer.drink:
         description: Allows you to drink beer
         default: true
-    beer.beer.brew:
-        description: Allows you to brew beer
+    beer.brew:
+        description: Allows you to brew
         default: true
-    beer.ale.brew:
-        description: Allows you to brew ale
-        default: true
-    beer.ale.drink:
-        description: Allows you to drink ale
-        default: true
-    beer.give.beer:
-        description: Allows you give away beer
-        default: op
-    beer.ale.drink:
-        description: Allows you to drink ale
+    beer.give:
+        description: Allows you give away brews
         default: op
  
 commands:

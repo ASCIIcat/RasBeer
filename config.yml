@@ -3,8 +3,7 @@
 #BLANK:BLANK:BLANK
 #SEED:SEED:SEED
 #WATER_BOTTLE:WATER_BOTTLE:WATER_BOTTLE
-beer:
-  DrinkName: "Beer"
+Lager:
   DrinkLore: "Refreshing and powerful, with a slight kiss of the hops"
 
   line1: "   " #Space means blank
@@ -20,8 +19,7 @@ beer:
   Material3Name: ""
   Material3: ""
 
-ale: #Just the same as beer...
-  DrinkName: "Ale"
+Ale: #Just the same as beer...
   DrinkLore: "Cool and refreshing"
 
   line1: " U "
