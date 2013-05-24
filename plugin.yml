@@ -1,7 +1,7 @@
-name: RasBeer
+name: RasBeer ASCIIcat Mod
 main: tk.rasmase.beer.Beer
-version: 0.4.1
-author: Rasmase
+version: 1.0.0
+author: Rasmase & ASCIIcat
 website: http://dev.bukkit.org/server-mods/rasbeer/
 permissions:
     beer.beer.*:

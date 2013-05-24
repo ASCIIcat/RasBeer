@@ -1,6 +1,10 @@
 package tk.rasmase.beer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,33 +25,38 @@ public class DrinkListener implements Listener {
     public void onPlayerDrink(PlayerItemConsumeEvent event) {
         ItemStack item = event.getItem(); //Gets the item that is consumed
         Player player = event.getPlayer(); //Gets player who triggered effect
-               if (event.isCancelled() == true || event.getItem() == null) {
-         return;
-               }
-         if (!(item.getType() == Material.POTION) || item.getItemMeta().getDisplayName() == null) {
-        	 return;
-         }
-        if (item.getItemMeta().getDisplayName() == "Beer") { //If the item's name is beer...
-        	if(player.hasPermission("beer.beer.drink")) { //Check for permission
-        	 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 3000, 1));  //Gives the drinker various effects
-        	 player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 3000, 1));
-        	 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 3000, 1));
-        	 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 3000, 1));
-        	} else {
-        		event.setCancelled(true); //cancel drinking
-        		player.sendMessage("You don't have permission to drink beer!");
-        	}
-        } else if (item.getItemMeta().getDisplayName().equals("Ale")) {
-        	if(player.hasPermission("beer.ale.drink")) { //Check for permission
-           	 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 3000, 1));  //Gives the drinker various effects
-           	 player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 3000, 1));
-           	 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 3000, 1));
-           	 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 3000, 1));
-           	} else {
-           		event.setCancelled(true); //cancel drinking
-           		player.sendMessage("You don't have permission to drink beer!");
+        
+        FileConfiguration config = plugin.getConfig();
+        List<String> drinksKeys = new ArrayList<String>();
+        
+        for(String key : config.getKeys(false))
+        {
+        	drinksKeys.add(key);
         }
-    }
+        
+        if (event.isCancelled() == true || event.getItem() == null) 
+        {
+        	return;
+        }
+        if (!(item.getType() == Material.POTION) || item.getItemMeta().getDisplayName() == null) 
+        {
+        	return;
+        }
+        if (drinksKeys.contains(item.getItemMeta().getDisplayName() )) 
+    	{
+	    	if(player.hasPermission("beer.drink")) 
+	    	{ //Check for permission
+		    	 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 3000, 1));  //Gives the drinker various effects
+		    	 player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 3000, 1));
+		    	 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 3000, 1));
+		    	 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 3000, 1));
+	    	} 
+	    	else 
+	    	{
+	    		event.setCancelled(true); //cancel drinking
+	    		player.sendMessage("You don't have permission to drink beer!");
+	    	}
+    	}
 
 
 }
