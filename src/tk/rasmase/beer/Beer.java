@@ -45,7 +45,7 @@ public final class Beer extends JavaPlugin implements Listener {
 			//Sets beer
 	    	ItemStack drink = new ItemStack(Material.POTION, 3); //Defines beer
 	    	ItemMeta meta = drink.getItemMeta(); //Get meta something
-	    	meta.setDisplayName(config.getString(key)); //Sets name
+	    	meta.setDisplayName(key); //Sets name
 	    	meta.setLore(Arrays.asList(config.getString(key+".DrinkLore"))); //Sets Desc
 	    	drink.setItemMeta(meta); //Something meta something
 	    	//Sets Beer
