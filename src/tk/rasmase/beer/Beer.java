@@ -2,10 +2,13 @@ package tk.rasmase.beer;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -26,50 +29,43 @@ public final class Beer extends JavaPlugin implements Listener {
             }
         //Generate Config 
         
-        //Sets beer
-    	ItemStack beer = new ItemStack(Material.POTION, 3); //Defines beer
-    	ItemMeta meta = beer.getItemMeta(); //Get meta something
-    	meta.setDisplayName("Beer"); //Sets name
-    	meta.setLore(Arrays.asList("Gives slowness and confusion effects.")); //Sets Desc
-    	beer.setItemMeta(meta); //Something meta something
-    	//Sets Beer
-    	
-    	//Sets Recipe
-        ShapedRecipe Beer = new ShapedRecipe(beer); //Creates a recipe for beer
-        Beer.shape(getConfig().getString("beer.line1"), getConfig().getString("beer.line2"), getConfig().getString("beer.line3")); //Sets the shape for beer
-        if (!getConfig().getString("beer.Material1").equals("")) {
-       	 Beer.setIngredient(getConfig().getString("beer.Material1Name").charAt(0), Material.matchMaterial(getConfig().getString("beer.Material1"))); //Sets ingredients
-        }
-        if (!getConfig().getString("beer.Material2").equals("")) {
-        	Beer.setIngredient(getConfig().getString("beer.Material2Name").charAt(0), Material.matchMaterial(getConfig().getString("beer.Material2")));
-           }
-        if (!getConfig().getString("beer.Material3").equals("")) {
-        	Beer.setIngredient(getConfig().getString("beer.Material3Name").charAt(0), Material.matchMaterial(getConfig().getString("beer.Material3")));
-           }
-        Bukkit.getServer().addRecipe(Beer);  //Adds the recipe to server
-        //Sets Recipe
+        FileConfiguration config = getConfig();
+        List<String> drinksKeys = new ArrayList<String>();
         
-        //Sets ale
-    	ItemStack ale = new ItemStack(Material.POTION, 3); //Defines beer
-    	ItemMeta meta2 = ale.getItemMeta(); //Get meta something
-    	meta2.setDisplayName("Ale"); //Sets name
-    	meta2.setLore(Arrays.asList("Gives slowness and confusion effects.")); //Sets Desc
-    	ale.setItemMeta(meta2); //Set meta something
-    	//Sets ale
-        
-        ShapedRecipe Ale = new ShapedRecipe(ale); //Creates a recipe for beer
-        Ale.shape(getConfig().getString("ale.line1"), getConfig().getString("ale.line2"), getConfig().getString("ale.line3")); //Sets the shape for beer
-        if (!getConfig().getString("ale.Material1").equals("")) {
-       	 Ale.setIngredient(getConfig().getString("ale.Material1Name").charAt(0), Material.matchMaterial(getConfig().getString("ale.Material1"))); //Sets ingredients
+        for(String key : config.getKeys(false))
+        {
+        	drinksKeys.add(key);
         }
-        if (!getConfig().getString("ale.Material2").equals("")) {
-        	Ale.setIngredient(getConfig().getString("ale.Material2Name").charAt(0), Material.matchMaterial(getConfig().getString("ale.Material2")));
-           }
-        if (!getConfig().getString("ale.Material3").equals("")) {
-        	Ale.setIngredient(getConfig().getString("ale.Material3Name").charAt(0), Material.matchMaterial(getConfig().getString("ale.Material3")));
-           }
-        Bukkit.getServer().addRecipe(Ale);  //Adds the recipe to server
-        //Sets Recipe
+        
+        for (String key : drinksKeys) 
+        {
+			if(key.equals("db"))
+				break;
+			
+			//Sets beer
+	    	ItemStack drink = new ItemStack(Material.POTION, 3); //Defines beer
+	    	ItemMeta meta = drink.getItemMeta(); //Get meta something
+	    	meta.setDisplayName(config.getString(key+".DrinkName")); //Sets name
+	    	meta.setLore(Arrays.asList(config.getString(key+".DrinkLore"))); //Sets Desc
+	    	drink.setItemMeta(meta); //Something meta something
+	    	//Sets Beer
+	    	
+	    	//Sets Recipe
+	        ShapedRecipe Drink = new ShapedRecipe(drink); //Creates a recipe for beer
+	        Drink.shape(config.getString(key+".line1"), config.getString(key+".line2"), config.getString(key+".line3")); //Sets the shape for beer
+	        if (!config.getString(key+".Material1").equals("")) {
+	        	Drink.setIngredient(config.getString(key+".Material1Name").charAt(0), Material.matchMaterial(config.getString(key+".Material1"))); //Sets ingredients
+	        }
+	        if (!config.getString(key+".Material2").equals("")) {
+	        	Drink.setIngredient(config.getString(key+".Material2Name").charAt(0), Material.matchMaterial(config.getString(key+".Material2")));
+	           }
+	        if (!config.getString("beer.Material3").equals("")) {
+	        	Drink.setIngredient(config.getString(key+".Material3Name").charAt(0), Material.matchMaterial(config.getString(key+".Material3")));
+	           }
+	        Bukkit.getServer().addRecipe(Drink);  //Adds the recipe to server
+	        //Sets Recipe
+		}
+        
         
         //Listeners
         getServer().getPluginManager().registerEvents(new CraftListener(), this);

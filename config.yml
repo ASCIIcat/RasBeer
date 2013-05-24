@@ -4,6 +4,9 @@
 #SEED:SEED:SEED
 #WATER_BOTTLE:WATER_BOTTLE:WATER_BOTTLE
 beer:
+  DrinkName: "Beer"
+  DrinkLore: "Refreshing and powerful, with a slight kiss of the hops"
+
   line1: "   " #Space means blank
   line2: "SSS" #S is in this case wheat
   line3: "WWW" #W is Water Bottle
@@ -18,6 +21,9 @@ beer:
   Material3: ""
 
 ale: #Just the same as beer...
+  DrinkName: "Ale"
+  DrinkLore: "Cool and refreshing"
+
   line1: " U "
   line2: "SSS"
   line3: "WWW"
