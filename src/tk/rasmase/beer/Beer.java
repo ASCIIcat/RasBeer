@@ -19,7 +19,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Beer extends JavaPlugin implements Listener {
 
     @Override
-    public void onEnable(){
+    public void onEnable()
+    {
     	
     	//Generate Config
         if (!new File(getDataFolder(), "config.yml").exists()) { //If the config dont exists...
@@ -79,7 +80,8 @@ public final class Beer extends JavaPlugin implements Listener {
     }
     
     @Override
-    public void onDisable(){
+    public void onDisable()
+    {
     	//Might do something in the future
     }
     

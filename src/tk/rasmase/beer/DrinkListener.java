@@ -22,42 +22,50 @@ public class DrinkListener implements Listener {
 	}
 
     @EventHandler
-    public void onPlayerDrink(PlayerItemConsumeEvent event) {
-        ItemStack item = event.getItem(); //Gets the item that is consumed
-        Player player = event.getPlayer(); //Gets player who triggered effect
-        
-        FileConfiguration config = plugin.getConfig();
-        List<String> drinksKeys = new ArrayList<String>();
-        
-        for(String key : config.getKeys(false))
-        {
-        	drinksKeys.add(key);
-        }
-        
-        if (event.isCancelled() == true || event.getItem() == null) 
-        {
-        	return;
-        }
-        if (!(item.getType() == Material.POTION) || item.getItemMeta().getDisplayName() == null) 
-        {
-        	return;
-        }
-        if (drinksKeys.contains(item.getItemMeta().getDisplayName() )) 
+    public void onPlayerDrink(PlayerItemConsumeEvent event) 
+    {
+    	try
     	{
-	    	if(player.hasPermission("beer.drink")) 
-	    	{ //Check for permission
-		    	 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 3000, 1));  //Gives the drinker various effects
-		    	 player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 3000, 1));
-		    	 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 3000, 1));
-		    	 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 3000, 1));
-	    	} 
-	    	else 
+	        ItemStack item = event.getItem(); //Gets the item that is consumed
+	        Player player = event.getPlayer(); //Gets player who triggered effect
+	        
+	        FileConfiguration config = plugin.getConfig();
+	        List<String> drinksKeys = new ArrayList<String>();
+	        
+	        for(String key : config.getKeys(false))
+	        {
+	        	drinksKeys.add(key);
+	        }
+	        
+	        if (event.isCancelled() == true || event.getItem() == null) 
+	        {
+	        	return;
+	        }
+	        if (drinksKeys.contains(item.getItemMeta().getDisplayName() )) 
 	    	{
-	    		event.setCancelled(true); //cancel drinking
-	    		player.sendMessage("You don't have permission to drink beer!");
+		        if (!(item.getType() == Material.POTION) || item.getItemMeta().getDisplayName() == null) 
+		        {
+		        	return;
+		        }
+		        else if(player.hasPermission("beer.drink")) 
+		    	{ //Check for permission
+			    	 player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 3000, 1));  //Gives the drinker various effects
+			    	 player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 3000, 1));
+			    	 player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 3000, 1));
+			    	 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 3000, 1));
+		    	} 
+		    	else 
+		    	{
+		    		event.setCancelled(true); //cancel drinking
+		    		player.sendMessage("You don't have permission to drink beer!");
+		    	}
 	    	}
+    	}
+    	catch(Exception ex)
+    	{
+    		//need to do something here
     	}
 
 
-}
+    }
 }
